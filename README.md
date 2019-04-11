@@ -5,7 +5,7 @@
 ### 参考文档
 https://doc.networknt.com/tool/light-codegen/openapi-generator/
 
- 操作步骤
+操作步骤
 >* git clone https://github.com/networknt/light-codegen.git
 >* cd light-codegen
 >* mvn clean install
@@ -13,3 +13,8 @@ https://doc.networknt.com/tool/light-codegen/openapi-generator/
 >* cd ../define-rest-4j/
 >* mvn clean install exec:exec
 >* curl http://localhost:8080/server/info
+
+GIT操作命令
+>* git add *
+>* git commit -m 'init project'
+>* git push origin master
