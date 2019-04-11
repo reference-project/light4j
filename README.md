@@ -18,3 +18,4 @@ GIT操作命令
 >* git add *
 >* git commit -m 'init project'
 >* git push origin master
+>* git pull
