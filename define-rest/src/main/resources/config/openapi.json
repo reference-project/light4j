@@ -1,4 +1,6 @@
-{"components":{"requestBodies": {
+{
+  "components": {
+    "requestBodies": {
       "Contact": {
         "content": {
           "application/json": {
@@ -37,7 +39,8 @@
           }
         }
       }
-    },"securitySchemes": {
+    },
+    "securitySchemes": {
       "etransfer_auth": {
         "type": "oauth2",
         "description": "This API uses OAuth 2 with the client credential grant flow.",
@@ -51,7 +54,8 @@
           }
         }
       }
-    },"parameters": {
+    },
+    "parameters": {
       "thirdPartyAccessId": {
         "name": "thirdPartyAccessId",
         "in": "header",
@@ -125,9 +129,129 @@
           "maximum": 64
         }
       }
-    },"schemas":{"CancellationReason":{"type": "object","required":["cancellationReason"],"properties":{"cancellationReason":{"description": "cancellation reason","type": "string","maxLength": 400,"minLength": 1}}},"Invoice":{"type": "object","properties":{"invoiceNumber":{"description": "number of the invoice to be paid","type": "string","maxLength": 120,"minLength": 1},"dueDate":{"type": "string","format": "dateTime","description": "UTC date  of  the invoice is to be paid by; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"}}},"errorModel":{"type": "object","required":["code",
-          "message"],"properties":{"message":{"type": "string"},"code":{"type": "integer","format": "int32","description": "Error list for all the API's, please refer example tag for api specific error code.\n1000 Invalid request.\n1001 Invalid access.\n1002 Allowed feature list not supported for user.\n1003 Customer doesn't exist - ParticipantUserId doesn't exist.\n1004 Duplicate User registration.\n1005 ApiRegistartionId doesn't exist.\n1006 Hard contact doesn't exist.\n1007 Contact doesn't exist.\n1008 Duplicate ThirdPartyUserId.\n1009 Invalid ParticipantId.\n1010 Invalid IndirectConnectorId of participant.\n1011 Invalid apiRegistartionId.\n1012 Retrive last updated contact details, contact hash invalid.\n1013 Contact has notification handle registered for direct deposit, regular transfer cannot be sent.\n1014 Sender and Recipient cannot be same customer.\n1015 Sender is disabled.\n1016 Transfer amount exceeds the individual outgoing transfer threshold.\n1017 Total cumulative transfers exceeds the daily outgoing transfer amount threshold.\n1018 Total cumulative transfers exceeds the first rolling limit outgoing transfer amount threshold.\n1019 Total cumulative transfers exceeds the second rolling limit outgoing transfer amount threshold.\n1020 Duplicate source system id.\n1021 Expiry Date is less than Creation Date.\n1022 Contact is not registered for direct deposit, direct deposit cannot be sent.\n1023 Expiry Date exceeds threshold limit.\n1024 Invalid Transfer authentication for the Transfer type.\n1025 Money request doesn't exist.\n1026 Direct deposit registration doesn't exist.\n1027 Hash algorithm not supported by the system.\n1028 Fullfill amount should be same as requested amount.\n1029 Transfer doesn't exist.\n1030 Invalid date range.\n1031 Mutually exclusive options are specified.\n1032 Hash Salt is required if hashtype is not MD5.\n1033 Request cannot be processed due to current status.\n1034 Authentication failed, try again later.\n1035 Authentication failed, can't try later.\n1036 Transfer was authenticated by a different customer.\n1037 Feature is not supported for current user.\n1038 Outgoing money request amount threshold exceeded.\n1039 Maximum number of outgoing money requests threshold exceeded.\n1040 Customer can't send money request to Recipient/Contact.\n1041 Invoice due date exceeds the money request expiry date.\n1042 Exceeded max number of notifications for the Money Request.\n1043 Duplicate contact name.\n1044 Contact can't be deleted if there are in flight transfers.\n1045 Transfer can't be created, due to intrruption in previous transfer.\n1046 Currency code or product type is not supported.\n1047 Invalid Transfer type.\n1048 Hard contact already exist for sender.\n1049 Customer blocked to send money request notifications to Recipient/Contact\n1050 Editable fulfill amount is not supported for requesting customer.\n1051 Recipient  / Responder is disabled.\n1052 Notice cannot be sent. Notifications are supressed for this Money Request.\n1053 Invalid Direct deposit registration handle.\n1054 supressResponderNotifications has to be true when RequestedFrom is not specified."}}},"DirectDepositRegistration":{"description": "auto deposit registration details associated with a notification handle","type": "object","required":["directDepositHandle"],"properties":{"directDepositRegistrationId":{"description": "unique identifier of the direct depost registration in e-Transfer system","type": "string","maxLength": 16,"minLength": 1},"directDepositHandle":{"description": "email address, phone number or unique user identifier","type": "string","maxLength": 240,"minLength": 1},"directDepositHandleType":{"type": "string","enum":{"SMS":"sms","EMAIL":"email","UUID":"uuid"}}}},"UserRegistration":{"type": "object","required":["thirdPartyUserId",
-          "allowedFeatures"],"properties":{"indirectConnectorId":{"description": "indirect connector id in e-Transfer system","type": "string","maxLength": 9,"minLength": 9},"registrationStatus":{"type": "string","description": "status of the user registration request 'pending','active','inactive','failed','in-review'","enum":{"IN_REVIEW":"in-review","ACTIVE":"active","FAILED":"failed","INACTIVE":"inactive","PENDING":"pending"}},"directDepositRegistration":{"$ref": "#/components/schemas/DirectDepositRegistration"},"participantUserId":{"description": "participant defined user id in e-Transfer system; required if api registration is created through the public api and directDepositRegistration is not specified.","type": "string","maxLength": 32,"minLength": 1},"thirdPartyUserId":{"description": "unique third party partner defined user id in e-Transfer system","type": "string","maxLength": 50,"minLength": 1},"allowedFeatures":{"type": "array","items":{"type": "string","description": "functionality allowed to be used through this API; 'contact_mgmnt', 'send_money_requests', 'fulfill_money_requests', 'send_transfers', 'receive_transfers', 'user_registration_mgmnt' The below feature's are only for external app's, which doesn't need to be synchronized with online banking transfers, contacts and money requests  'contact_mgmnt_ext_api', 'money_request_mgmt_ext_api,'transfer_mgmt_ext_api'","enum": [
+    },
+    "schemas": {
+      "CancellationReason": {
+        "type": "object",
+        "required": [
+          "cancellationReason"
+        ],
+        "properties": {
+          "cancellationReason": {
+            "description": "cancellation reason",
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1
+          }
+        }
+      },
+      "Invoice": {
+        "type": "object",
+        "properties": {
+          "invoiceNumber": {
+            "description": "number of the invoice to be paid",
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "dateTime",
+            "description": "UTC date  of  the invoice is to be paid by; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"
+          }
+        }
+      },
+      "errorModel": {
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Error list for all the API's, please refer example tag for api specific error code.\n1000 Invalid request.\n1001 Invalid access.\n1002 Allowed feature list not supported for user.\n1003 Customer doesn't exist - ParticipantUserId doesn't exist.\n1004 Duplicate User registration.\n1005 ApiRegistartionId doesn't exist.\n1006 Hard contact doesn't exist.\n1007 Contact doesn't exist.\n1008 Duplicate ThirdPartyUserId.\n1009 Invalid ParticipantId.\n1010 Invalid IndirectConnectorId of participant.\n1011 Invalid apiRegistartionId.\n1012 Retrive last updated contact details, contact hash invalid.\n1013 Contact has notification handle registered for direct deposit, regular transfer cannot be sent.\n1014 Sender and Recipient cannot be same customer.\n1015 Sender is disabled.\n1016 Transfer amount exceeds the individual outgoing transfer threshold.\n1017 Total cumulative transfers exceeds the daily outgoing transfer amount threshold.\n1018 Total cumulative transfers exceeds the first rolling limit outgoing transfer amount threshold.\n1019 Total cumulative transfers exceeds the second rolling limit outgoing transfer amount threshold.\n1020 Duplicate source system id.\n1021 Expiry Date is less than Creation Date.\n1022 Contact is not registered for direct deposit, direct deposit cannot be sent.\n1023 Expiry Date exceeds threshold limit.\n1024 Invalid Transfer authentication for the Transfer type.\n1025 Money request doesn't exist.\n1026 Direct deposit registration doesn't exist.\n1027 Hash algorithm not supported by the system.\n1028 Fullfill amount should be same as requested amount.\n1029 Transfer doesn't exist.\n1030 Invalid date range.\n1031 Mutually exclusive options are specified.\n1032 Hash Salt is required if hashtype is not MD5.\n1033 Request cannot be processed due to current status.\n1034 Authentication failed, try again later.\n1035 Authentication failed, can't try later.\n1036 Transfer was authenticated by a different customer.\n1037 Feature is not supported for current user.\n1038 Outgoing money request amount threshold exceeded.\n1039 Maximum number of outgoing money requests threshold exceeded.\n1040 Customer can't send money request to Recipient/Contact.\n1041 Invoice due date exceeds the money request expiry date.\n1042 Exceeded max number of notifications for the Money Request.\n1043 Duplicate contact name.\n1044 Contact can't be deleted if there are in flight transfers.\n1045 Transfer can't be created, due to intrruption in previous transfer.\n1046 Currency code or product type is not supported.\n1047 Invalid Transfer type.\n1048 Hard contact already exist for sender.\n1049 Customer blocked to send money request notifications to Recipient/Contact\n1050 Editable fulfill amount is not supported for requesting customer.\n1051 Recipient  / Responder is disabled.\n1052 Notice cannot be sent. Notifications are supressed for this Money Request.\n1053 Invalid Direct deposit registration handle.\n1054 supressResponderNotifications has to be true when RequestedFrom is not specified."
+          }
+        }
+      },
+      "DirectDepositRegistration": {
+        "description": "auto deposit registration details associated with a notification handle",
+        "type": "object",
+        "required": [
+          "directDepositHandle"
+        ],
+        "properties": {
+          "directDepositRegistrationId": {
+            "description": "unique identifier of the direct depost registration in e-Transfer system",
+            "type": "string",
+            "maxLength": 16,
+            "minLength": 1
+          },
+          "directDepositHandle": {
+            "description": "email address, phone number or unique user identifier",
+            "type": "string",
+            "maxLength": 240,
+            "minLength": 1
+          },
+          "directDepositHandleType": {
+            "type": "string",
+            "enum": {
+              "SMS": "sms",
+              "EMAIL": "email",
+              "UUID": "uuid"
+            }
+          }
+        }
+      },
+      "UserRegistration": {
+        "type": "object",
+        "required": [
+          "thirdPartyUserId",
+          "allowedFeatures"
+        ],
+        "properties": {
+          "indirectConnectorId": {
+            "description": "indirect connector id in e-Transfer system",
+            "type": "string",
+            "maxLength": 9,
+            "minLength": 9
+          },
+          "registrationStatus": {
+            "type": "string",
+            "description": "status of the user registration request 'pending','active','inactive','failed','in-review'",
+            "enum": {
+              "IN_REVIEW": "in-review",
+              "ACTIVE": "active",
+              "FAILED": "failed",
+              "INACTIVE": "inactive",
+              "PENDING": "pending"
+            }
+          },
+          "directDepositRegistration": {
+            "$ref": "#/components/schemas/DirectDepositRegistration"
+          },
+          "participantUserId": {
+            "description": "participant defined user id in e-Transfer system; required if api registration is created through the public api and directDepositRegistration is not specified.",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1
+          },
+          "thirdPartyUserId": {
+            "description": "unique third party partner defined user id in e-Transfer system",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1
+          },
+          "allowedFeatures": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "functionality allowed to be used through this API; 'contact_mgmnt', 'send_money_requests', 'fulfill_money_requests', 'send_transfers', 'receive_transfers', 'user_registration_mgmnt' The below feature's are only for external app's, which doesn't need to be synchronized with online banking transfers, contacts and money requests  'contact_mgmnt_ext_api', 'money_request_mgmt_ext_api,'transfer_mgmt_ext_api'",
+              "enum": [
                 "contact_mgmnt",
                 "money_request_mgmt",
                 "transfer_mgmt",
@@ -139,10 +263,97 @@
                 "contact_mgmnt_ext_api",
                 "money_request_mgmt_ext_api",
                 "transfer_mgmt_ext_api"
-              ]}},"participantApiRegistrationId":{"description": "participant defined identifier for this Api registration; required if api registration is created through the public api","type": "string","maxLength": 32,"minLength": 1},"apiRegistrationId":{"type": "string","description": "unique identifier for the user api registration; not required in POST request","maxLength": 50},"logoUrl":{"type": "string","maxLength": 200,"minLength": 1},"fiAccountId":{"description": "unique identifier set by financial institution corresponding to the user's bank account; required if api registration is created through the public api and directDepositRegistration is not specified.","type": "string","maxLength": 50,"minLength": 1},"participantId":{"description": "participant id in e-Transfer system; required if api registration is created through the public api and directDepositRegistration is not specified.","type": "string","maxLength": 8,"minLength": 8},"websiteUrl":{"type": "string","maxLength": 64,"minLength": 1},"name":{"type": "string","maxLength": 64,"minLength": 1},"customerDetails":{"$ref": "#/components/schemas/CustomerDetails"}}},"TransferAuthentication":{"type": "object","required":["securityQuestion",
-          "securityAnswer"],"properties":{"hashSalt":{"description": "required if hashType is not MD5, values not returned in GET requests for security reasons.","type": "string","maxLength": 44,"minLength": 1},"securityQuestion":{"description": "the security question","type": "string","maxLength": 40,"minLength": 1},"securityAnswer":{"type": "string","description": "answer to the security question (as provided by the customer) with leading and trailing whitespace trimmed, uppercased, postfixed with hashSalt if present, hashed using the alghoritm identified by hashType and then Base64 encoded. ISO-8859-1 encoding to be used when the hash is generated, values not returned in GET requests for security reasons."},"hashType":{"type": "string","description": "alghorithm used to hash the security answer; it has to be one of values supported by the system","enum":{"SHA2":"SHA2","MD5":"MD5"}}}},"CustomerDetails":{"description": "auto deposit registration details associated with a notification handle or hard contact customer details.","type": "object","required":["customerType",
+              ]
+            }
+          },
+          "participantApiRegistrationId": {
+            "description": "participant defined identifier for this Api registration; required if api registration is created through the public api",
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1
+          },
+          "apiRegistrationId": {
+            "type": "string",
+            "description": "unique identifier for the user api registration; not required in POST request",
+            "maxLength": 50
+          },
+          "logoUrl": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1
+          },
+          "fiAccountId": {
+            "description": "unique identifier set by financial institution corresponding to the user's bank account; required if api registration is created through the public api and directDepositRegistration is not specified.",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1
+          },
+          "participantId": {
+            "description": "participant id in e-Transfer system; required if api registration is created through the public api and directDepositRegistration is not specified.",
+            "type": "string",
+            "maxLength": 8,
+            "minLength": 8
+          },
+          "websiteUrl": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "customerDetails": {
+            "$ref": "#/components/schemas/CustomerDetails"
+          }
+        }
+      },
+      "TransferAuthentication": {
+        "type": "object",
+        "required": [
+          "securityQuestion",
+          "securityAnswer"
+        ],
+        "properties": {
+          "hashSalt": {
+            "description": "required if hashType is not MD5, values not returned in GET requests for security reasons.",
+            "type": "string",
+            "maxLength": 44,
+            "minLength": 1
+          },
+          "securityQuestion": {
+            "description": "the security question",
+            "type": "string",
+            "maxLength": 40,
+            "minLength": 1
+          },
+          "securityAnswer": {
+            "type": "string",
+            "description": "answer to the security question (as provided by the customer) with leading and trailing whitespace trimmed, uppercased, postfixed with hashSalt if present, hashed using the alghoritm identified by hashType and then Base64 encoded. ISO-8859-1 encoding to be used when the hash is generated, values not returned in GET requests for security reasons."
+          },
+          "hashType": {
+            "type": "string",
+            "description": "alghorithm used to hash the security answer; it has to be one of values supported by the system",
+            "enum": {
+              "SHA2": "SHA2",
+              "MD5": "MD5"
+            }
+          }
+        }
+      },
+      "CustomerDetails": {
+        "description": "auto deposit registration details associated with a notification handle or hard contact customer details.",
+        "type": "object",
+        "required": [
+          "customerType",
           "registrationName",
-          "legalName"],"properties":{"legalName":{"type": "object","properties": {
+          "legalName"
+        ],
+        "properties": {
+          "legalName": {
+            "type": "object",
+            "properties": {
               "retailName": {
                 "type": "object",
                 "required": [
@@ -190,10 +401,45 @@
                   }
                 }
               }
-            }},"customerType":{"type": "string","enum":{"RETAIL":"retail","SMALL_BUSINESS":"small_business","CORPORATE":"corporate"}},"registrationName":{"description": "name used by the customer to register in e-Transfer system","type": "string","maxLength": 80,"minLength": 1}}},"Contact":{"type": "object","required":["contactName",
-          "language"],"properties":{"directDepositRegistration":{"$ref": "#/components/schemas/DirectDepositRegistration","description": "direct deposit registration associated with a contact notification handle"},"contactHash":{"type": "string","description": "unique hash value to identify version of contact, not required in POST request"},"hardContactUser":{"type": "object","required": [
+            }
+          },
+          "customerType": {
+            "type": "string",
+            "enum": {
+              "RETAIL": "retail",
+              "SMALL_BUSINESS": "small_business",
+              "CORPORATE": "corporate"
+            }
+          },
+          "registrationName": {
+            "description": "name used by the customer to register in e-Transfer system",
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1
+          }
+        }
+      },
+      "Contact": {
+        "type": "object",
+        "required": [
+          "contactName",
+          "language"
+        ],
+        "properties": {
+          "directDepositRegistration": {
+            "$ref": "#/components/schemas/DirectDepositRegistration",
+            "description": "direct deposit registration associated with a contact notification handle"
+          },
+          "contactHash": {
+            "type": "string",
+            "description": "unique hash value to identify version of contact, not required in POST request"
+          },
+          "hardContactUser": {
+            "type": "object",
+            "required": [
               "thirdPartyUserId"
-            ],"properties": {
+            ],
+            "properties": {
               "thirdPartyUserId": {
                 "type": "string",
                 "minLength": 1,
@@ -208,15 +454,127 @@
                 ],
                 "description": "status of hard contact, if customer is disabled or de reg"
               }
-            }},"contactId":{"description": "unique identifier for the contact; not required in POST request","type": "string","maxLength": 16,"minLength": 16},"contactName":{"description": "unique contact name to be provided for each contacts.","type": "string","maxLength": 80,"minLength": 1},"onUs":{"type": "boolean","description": "the registered user and the coustomer associated with the direct deposit registration have the same financial institution"},"language":{"description": "language used to notify this contact","type": "string","maxLength": 2,"enum":{"EN":"en","FR":"fr"},"minLength": 2},"notificationPreferences":{"type": "array","description": "notification preferences for the contact","items":{"$ref": "#/components/schemas/NotificationPreference"}},"customerDetails":{"$ref": "#/components/schemas/CustomerDetails","description": "customer details associated the hard contract or the auto deposit registration associated with one of the contact notification handles"}}},"RecipientMemo":{"type": "object","maxLength": 400,"required":["recipientMemo"],"properties":{"recipientMemo":{"type": "string","description": "recipient memo"}},"minLength": 1},"NotificationPreference":{"type": "object","required":["handle",
+            }
+          },
+          "contactId": {
+            "description": "unique identifier for the contact; not required in POST request",
+            "type": "string",
+            "maxLength": 16,
+            "minLength": 16
+          },
+          "contactName": {
+            "description": "unique contact name to be provided for each contacts.",
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1
+          },
+          "onUs": {
+            "type": "boolean",
+            "description": "the registered user and the coustomer associated with the direct deposit registration have the same financial institution"
+          },
+          "language": {
+            "description": "language used to notify this contact",
+            "type": "string",
+            "maxLength": 2,
+            "enum": {
+              "EN": "en",
+              "FR": "fr"
+            },
+            "minLength": 2
+          },
+          "notificationPreferences": {
+            "type": "array",
+            "description": "notification preferences for the contact",
+            "items": {
+              "$ref": "#/components/schemas/NotificationPreference"
+            }
+          },
+          "customerDetails": {
+            "$ref": "#/components/schemas/CustomerDetails",
+            "description": "customer details associated the hard contract or the auto deposit registration associated with one of the contact notification handles"
+          }
+        }
+      },
+      "RecipientMemo": {
+        "type": "object",
+        "maxLength": 400,
+        "required": [
+          "recipientMemo"
+        ],
+        "properties": {
+          "recipientMemo": {
+            "type": "string",
+            "description": "recipient memo"
+          }
+        },
+        "minLength": 1
+      },
+      "NotificationPreference": {
+        "type": "object",
+        "required": [
+          "handle",
           "handleType",
-          "active"],"properties":{"handleType":{"type": "string","enum":{"SMS":"sms","EMAIL":"email"}},"active":{"type": "boolean","description": "specifies if notifications will not be sent"},"handle":{"description": "Email address (format a@b.ca) or mobile phone number ( format 123-222-7777 )","type": "string","maxLength": 64,"minLength": 6}}},"MoneyRequest":{"type": "object","required":["sourceMoneyRequestId",
+          "active"
+        ],
+        "properties": {
+          "handleType": {
+            "type": "string",
+            "enum": {
+              "SMS": "sms",
+              "EMAIL": "email"
+            }
+          },
+          "active": {
+            "type": "boolean",
+            "description": "specifies if notifications will not be sent"
+          },
+          "handle": {
+            "description": "Email address (format a@b.ca) or mobile phone number ( format 123-222-7777 )",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 6
+          }
+        }
+      },
+      "MoneyRequest": {
+        "type": "object",
+        "required": [
+          "sourceMoneyRequestId",
           "requestedFrom",
           "amount",
           "currency",
           "editableFulfillAmount",
           "expiryDate",
-          "supressResponderNotifications"],"properties":{"amount":{"type": "number","format": "double","description": "the requested amount"},"notificationStatus":{"type": "integer","description": "indicates the status of the notifications sent to the recipient; this field should not be specified in POST or PUT requests | SENT(0) PENDING(1) PENDING_SEND_FAILURE(2) DELIVERY_FAILURE(3)"},"supressResponderNotifications":{"type": "boolean","description": "if flag is on, Interac will not send notifications to the intended responder; the requester is expected to handle the notification part themselves. If requestedFrom is not specified, supressResponderNotifications has to be true."},"creationDate":{"type": "string","format": "datetime","description": "UTC datatime of creation for this request; this field should not be specified in POST or PUT requests; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"},"fulfillAmount":{"type": "number","format": "double","description": "the fulfilled amount; to not be specified in POST or PUT requests; present if status is completed"},"requestedFrom":{"type": "object","description": "Responder details of the money request, required for get money request.","properties": {
+          "supressResponderNotifications"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "the requested amount"
+          },
+          "notificationStatus": {
+            "type": "integer",
+            "description": "indicates the status of the notifications sent to the recipient; this field should not be specified in POST or PUT requests | SENT(0) PENDING(1) PENDING_SEND_FAILURE(2) DELIVERY_FAILURE(3)"
+          },
+          "supressResponderNotifications": {
+            "type": "boolean",
+            "description": "if flag is on, Interac will not send notifications to the intended responder; the requester is expected to handle the notification part themselves. If requestedFrom is not specified, supressResponderNotifications has to be true."
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "datetime",
+            "description": "UTC datatime of creation for this request; this field should not be specified in POST or PUT requests; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"
+          },
+          "fulfillAmount": {
+            "type": "number",
+            "format": "double",
+            "description": "the fulfilled amount; to not be specified in POST or PUT requests; present if status is completed"
+          },
+          "requestedFrom": {
+            "type": "object",
+            "description": "Responder details of the money request, required for get money request.",
+            "properties": {
               "contactId": {
                 "type": "string",
                 "description": "Unique identifier for the contact; required for permanent contact."
@@ -244,8 +602,87 @@
                   "$ref": "#/components/schemas/NotificationPreference"
                 }
               }
-            }},"expiryDate":{"type": "string","format": "datetime","description": "UTC datatime this money request is valid until; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"},"editableFulfillAmount":{"type": "boolean","description": "flag indicating if the transfer amount can be different from the requested amount"},"referenceNumber":{"type": "string","description": "unique identifier for the money request; this field should not be specified in the POST request","maxLength": 16},"currency":{"type": "string","description": "the currency of the requested amount; only CAD is supported for now"},"responderMessage":{"type": "string","description": "message from the responder; this field should not be specified in POST or PUT requests"},"requesterMessage":{"description": "message from the requester","type": "string","maxLength": 400,"minLength": 1},"invoice":{"$ref": "#/components/schemas/Invoice"},"returnURL":{"type": "string","description": "return URL to redirect the Responder after the Money Request fulfillment"},"sourceMoneyRequestId":{"description": "unique identifier of the money request in the originating system","type": "string","maxLength": 64,"minLength": 1},"status":{"type": "integer","description": "Does not need to be provided at request creation time; this field should not be specified in POST or PUT requests | - REQUEST_INITIATED(1) - AVAILABLE_TO_BE_FULFILLED(2) - REQUEST_FULFILLED(3) - DECLINED(4) - CANCELLED(5) - EXPIRED(6) - DEPOSIT_FAILED(7) - REQUEST_COMPLETED(8)"}}},"AccessToken":{"type": "object","required":["accessToken",
-          "expiresIn"],"properties":{"expiresIn":{"type": "integer","description": "how many seconds the token will expire"},"accessToken":{"type": "string"},"tokenType":{"type": "string","description": "example value is 'bearer'"},"scope":{"type": "string","description": "example value is 'read trust write'"}}},"UserRegistrationUpdate":{"type": "object","properties":{"allowedFeatures":{"type": "array","items":{"type": "string","enum": [
+            }
+          },
+          "expiryDate": {
+            "type": "string",
+            "format": "datetime",
+            "description": "UTC datatime this money request is valid until; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"
+          },
+          "editableFulfillAmount": {
+            "type": "boolean",
+            "description": "flag indicating if the transfer amount can be different from the requested amount"
+          },
+          "referenceNumber": {
+            "type": "string",
+            "description": "unique identifier for the money request; this field should not be specified in the POST request",
+            "maxLength": 16
+          },
+          "currency": {
+            "type": "string",
+            "description": "the currency of the requested amount; only CAD is supported for now"
+          },
+          "responderMessage": {
+            "type": "string",
+            "description": "message from the responder; this field should not be specified in POST or PUT requests"
+          },
+          "requesterMessage": {
+            "description": "message from the requester",
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1
+          },
+          "invoice": {
+            "$ref": "#/components/schemas/Invoice"
+          },
+          "returnURL": {
+            "type": "string",
+            "description": "return URL to redirect the Responder after the Money Request fulfillment"
+          },
+          "sourceMoneyRequestId": {
+            "description": "unique identifier of the money request in the originating system",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "status": {
+            "type": "integer",
+            "description": "Does not need to be provided at request creation time; this field should not be specified in POST or PUT requests | - REQUEST_INITIATED(1) - AVAILABLE_TO_BE_FULFILLED(2) - REQUEST_FULFILLED(3) - DECLINED(4) - CANCELLED(5) - EXPIRED(6) - DEPOSIT_FAILED(7) - REQUEST_COMPLETED(8)"
+          }
+        }
+      },
+      "AccessToken": {
+        "type": "object",
+        "required": [
+          "accessToken",
+          "expiresIn"
+        ],
+        "properties": {
+          "expiresIn": {
+            "type": "integer",
+            "description": "how many seconds the token will expire"
+          },
+          "accessToken": {
+            "type": "string"
+          },
+          "tokenType": {
+            "type": "string",
+            "description": "example value is 'bearer'"
+          },
+          "scope": {
+            "type": "string",
+            "description": "example value is 'read trust write'"
+          }
+        }
+      },
+      "UserRegistrationUpdate": {
+        "type": "object",
+        "properties": {
+          "allowedFeatures": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
                 "contact_mgmnt",
                 "money_request_mgmt",
                 "transfer_mgmt",
@@ -257,14 +694,85 @@
                 "contact_mgmnt_ext_api",
                 "money_request_mgmt_ext_api",
                 "transfer_mgmt_ext_api"
-              ]},"description": "functionality allowed to be used through this API; 'contact_mgmnt',\n 'send_money_requests', 'fulfill_money_requests', 'send_transfers',\n 'receive_transfers', 'user_registration_mgmnt'\n The below feature's are only for external app's, which doesn't need to be synchronized with online banking transfers, contacts and money requests \n 'contact_mgmnt_ext_api', 'money_request_mgmt_ext_api,'transfer_mgmt_ext_api'"},"name":{"type": "string","maxLength": 64,"minLength": 1},"directDepositRegistration":{"$ref": "#/components/schemas/DirectDepositRegistration"},"websiteUrl":{"type": "string","maxLength": 64,"minLength": 1},"logoUrl":{"type": "string","maxLength": 200,"minLength": 1},"fiAccountId":{"description": "updated fi account id; unique identifier set by financial institution corresponding to the user's bank account","type": "string","maxLength": 50,"minLength": 1}}},"Transfer":{"type": "object","required":["transferType",
+              ]
+            },
+            "description": "functionality allowed to be used through this API; 'contact_mgmnt',\n 'send_money_requests', 'fulfill_money_requests', 'send_transfers',\n 'receive_transfers', 'user_registration_mgmnt'\n The below feature's are only for external app's, which doesn't need to be synchronized with online banking transfers, contacts and money requests \n 'contact_mgmnt_ext_api', 'money_request_mgmt_ext_api,'transfer_mgmt_ext_api'"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "directDepositRegistration": {
+            "$ref": "#/components/schemas/DirectDepositRegistration"
+          },
+          "websiteUrl": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "logoUrl": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1
+          },
+          "fiAccountId": {
+            "description": "updated fi account id; unique identifier set by financial institution corresponding to the user's bank account",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1
+          }
+        }
+      },
+      "Transfer": {
+        "type": "object",
+        "required": [
+          "transferType",
           "sourceTransferId",
           "amount",
           "currency",
           "expiryDate",
-          "supplementaryInfo"],"properties":{"amount":{"type": "number","format": "double","description": "the sent amount"},"senderMessage":{"description": "message from the sender","type": "string","maxLength": 400,"minLength": 1},"notificationStatus":{"type": "integer","description": "indicates the status of the notifications sent to the recipient; this field should not be specified in POST or PUT requests | SENT(0) PENDING(1) PENDING_SEND_FAILURE(2) DELIVERY_FAILURE(3)"},"transferAuthentication":{"$ref": "#/components/schemas/TransferAuthentication","description": "transfer authentication required for regular transfers"},"senderRegistrationName":{"description": "name used by the sender to register in e-Transfer system; this field should not be specified in POST, PUT  or PATCH requests","type": "string","maxLength": 80,"minLength": 1},"sourceTransferId":{"description": "unique identifier of the transfer in the originating system","type": "string","maxLength": 64,"minLength": 1},"supplementaryInfo":{"description": "supplementaryInfo is required for POST request, as we have to capture where the request came from.","type": "object","required": [
+          "supplementaryInfo"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "the sent amount"
+          },
+          "senderMessage": {
+            "description": "message from the sender",
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1
+          },
+          "notificationStatus": {
+            "type": "integer",
+            "description": "indicates the status of the notifications sent to the recipient; this field should not be specified in POST or PUT requests | SENT(0) PENDING(1) PENDING_SEND_FAILURE(2) DELIVERY_FAILURE(3)"
+          },
+          "transferAuthentication": {
+            "$ref": "#/components/schemas/TransferAuthentication",
+            "description": "transfer authentication required for regular transfers"
+          },
+          "senderRegistrationName": {
+            "description": "name used by the sender to register in e-Transfer system; this field should not be specified in POST, PUT  or PATCH requests",
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1
+          },
+          "sourceTransferId": {
+            "description": "unique identifier of the transfer in the originating system",
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1
+          },
+          "supplementaryInfo": {
+            "description": "supplementaryInfo is required for POST request, as we have to capture where the request came from.",
+            "type": "object",
+            "required": [
               "ipAddress"
-            ],"properties": {
+            ],
+            "properties": {
               "ipAddress": {
                 "type": "string",
                 "description": "IP address used by the user"
@@ -273,7 +781,30 @@
                 "type": "string",
                 "description": "device fingerprint"
               }
-            }},"creationDate":{"type": "string","format": "datetime","description": "UTC datatime of creation for this transfer; this field should not be specified in POST or PUT requests; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"},"expiryDate":{"type": "string","format": "datetime","description": "UTC datatime this transfer is valid until; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"},"transactionType":{"type": "string","description": "type of the transactions sent or received.","enum":{"INCOMING":"incoming","OUTGOING":"outgoing"}},"sentTo":{"type": "object","description": "Receipient details of the transfers, required for outgoing or get transfers","properties": {
+            }
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "datetime",
+            "description": "UTC datatime of creation for this transfer; this field should not be specified in POST or PUT requests; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"
+          },
+          "expiryDate": {
+            "type": "string",
+            "format": "datetime",
+            "description": "UTC datatime this transfer is valid until; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"
+          },
+          "transactionType": {
+            "type": "string",
+            "description": "type of the transactions sent or received.",
+            "enum": {
+              "INCOMING": "incoming",
+              "OUTGOING": "outgoing"
+            }
+          },
+          "sentTo": {
+            "type": "object",
+            "description": "Receipient details of the transfers, required for outgoing or get transfers",
+            "properties": {
               "contactId": {
                 "type": "string",
                 "description": "Unique identifier for the contact; required for permanent contact transfers."
@@ -301,11 +832,82 @@
                   "$ref": "#/components/schemas/NotificationPreference"
                 }
               }
-            }},"referenceNumber":{"type": "string","description": "unique identifier for the transfer; this field should not be specified in the POST request","maxLength": 14},"recipientMessage":{"description": "message from the recipient; this field should not be specified in POST or PUT requests","type": "string","maxLength": 400,"minLength": 1},"requestReferenceNumber":{"type": "string","description": "reference number of the money request to be fufilled; required for money request fulfillment","maxLength": 16},"transferType":{"type": "string","enum":{"REGULAR_TRANSFER":"REGULAR_TRANSFER","MONEY_REQUEST_FULFILLMENT":"MONEY_REQUEST_FULFILLMENT","DIRECT_DEPOSIT":"DIRECT_DEPOSIT"}},"currency":{"type": "string","description": "the currency of the sent amount; only CAD is supported for now"},"receivedDate":{"type": "string","format": "datetime","description": "UTC datatime when this transfer was completed/received; this field should not be specified in POST or PUT requests; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"},"status":{"type": "integer","description": "Does not need to be provided at request creation time; this field should not be specified in POST or PUT requests | - TRANSFER_CREATION_INITIATED(21) - TRANSFER_CREATION_IN_PROCESS(22) - TRANSFER_CREATION_FAILED(23) - TRANSFER_CREATED(1) - TRANSFER_AVAILABLE(3) - AUTHENTICATION_FAILURE(5) - AUTHENTICATION_SUCCESSFUL(6) - DECLINED(7) - CANCELLED(8) - EXPIRED(9) - DIRECT_DEPOSIT_PENDING(17) - DIRECT_DEPOSIT_FAILED(18) - COMPLETED(10)"}}},"DeclineReason":{"type": "object","required":["declineReason"],"properties":{"declineReason":{"description": "decline reason","type": "string","maxLength": 400,"minLength": 1}}},"IncomingMoneyRequest":{"type": "object","required":["moneyRequest",
-          "requesterDetails"],"properties":{"requesterDetails":{"$ref": "#/components/schemas/CustomerDetails","description": "customer details associated with the requester of the money request"},"requesterNotifications":{"type": "array","description": "notifications associated with the requester","items":{"type": "object","required": [
+            }
+          },
+          "referenceNumber": {
+            "type": "string",
+            "description": "unique identifier for the transfer; this field should not be specified in the POST request",
+            "maxLength": 14
+          },
+          "recipientMessage": {
+            "description": "message from the recipient; this field should not be specified in POST or PUT requests",
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1
+          },
+          "requestReferenceNumber": {
+            "type": "string",
+            "description": "reference number of the money request to be fufilled; required for money request fulfillment",
+            "maxLength": 16
+          },
+          "transferType": {
+            "type": "string",
+            "enum": {
+              "REGULAR_TRANSFER": "REGULAR_TRANSFER",
+              "MONEY_REQUEST_FULFILLMENT": "MONEY_REQUEST_FULFILLMENT",
+              "DIRECT_DEPOSIT": "DIRECT_DEPOSIT"
+            }
+          },
+          "currency": {
+            "type": "string",
+            "description": "the currency of the sent amount; only CAD is supported for now"
+          },
+          "receivedDate": {
+            "type": "string",
+            "format": "datetime",
+            "description": "UTC datatime when this transfer was completed/received; this field should not be specified in POST or PUT requests; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"
+          },
+          "status": {
+            "type": "integer",
+            "description": "Does not need to be provided at request creation time; this field should not be specified in POST or PUT requests | - TRANSFER_CREATION_INITIATED(21) - TRANSFER_CREATION_IN_PROCESS(22) - TRANSFER_CREATION_FAILED(23) - TRANSFER_CREATED(1) - TRANSFER_AVAILABLE(3) - AUTHENTICATION_FAILURE(5) - AUTHENTICATION_SUCCESSFUL(6) - DECLINED(7) - CANCELLED(8) - EXPIRED(9) - DIRECT_DEPOSIT_PENDING(17) - DIRECT_DEPOSIT_FAILED(18) - COMPLETED(10)"
+          }
+        }
+      },
+      "DeclineReason": {
+        "type": "object",
+        "required": [
+          "declineReason"
+        ],
+        "properties": {
+          "declineReason": {
+            "description": "decline reason",
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1
+          }
+        }
+      },
+      "IncomingMoneyRequest": {
+        "type": "object",
+        "required": [
+          "moneyRequest",
+          "requesterDetails"
+        ],
+        "properties": {
+          "requesterDetails": {
+            "$ref": "#/components/schemas/CustomerDetails",
+            "description": "customer details associated with the requester of the money request"
+          },
+          "requesterNotifications": {
+            "type": "array",
+            "description": "notifications associated with the requester",
+            "items": {
+              "type": "object",
+              "required": [
                 "handle",
                 "handleType"
-              ],"properties": {
+              ],
+              "properties": {
                 "handle": {
                   "type": "string",
                   "minLength": 6,
@@ -319,7 +921,19 @@
                     "sms"
                   ]
                 }
-              }}},"moneyRequest":{"$ref": "#/components/schemas/MoneyRequest","description": "base money request data"}}},"IncomingTransfer":{"type": "object","required":["referenceNumber",
+              }
+            }
+          },
+          "moneyRequest": {
+            "$ref": "#/components/schemas/MoneyRequest",
+            "description": "base money request data"
+          }
+        }
+      },
+      "IncomingTransfer": {
+        "type": "object",
+        "required": [
+          "referenceNumber",
           "transferType",
           "amount",
           "currency",
@@ -327,11 +941,106 @@
           "senderRegistrationName",
           "status",
           "recipientLanguage",
-          "authenticationRequired"],"properties":{"amount":{"type": "number","format": "double","description": "the sent amount"},"senderMessage":{"description": "message from the sender","type": "string","maxLength": 400,"minLength": 1},"securityQuestion":{"description": "the security question","type": "string","maxLength": 40,"minLength": 1},"senderRegistrationName":{"description": "name used by the sender to register in e-Transfer system; this field should not be specified in POST or PUT requests","type": "string","maxLength": 80,"minLength": 1},"expiryDate":{"type": "string","format": "datetime","description": "UTC datatime this transfer is valid until; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"},"hashSalt":{"type": "string","description": "salt used to hash the security answer by the sending party","maxLength": 44},"authenticationRequired":{"type": "boolean","description": "true if recipient authentication is required"},"referenceNumber":{"type": "string","description": "unique identifier for the transfer","maxLength": 16},"transferType":{"type": "string","enum":{"REGULAR_TRANSFER":"REGULAR_TRANSFER","MONEY_REQUEST_FULFILLMENT":"MONEY_REQUEST_FULFILLMENT","DIRECT_DEPOSIT":"DIRECT_DEPOSIT"}},"currency":{"type": "string","description": "the currency of the sent amount; only CAD is supported for now"},"recipientLanguage":{"type": "string","description": "recipient's preferred language as defined by the sender","enum":{"EN":"en","FR":"fr"}},"hashType":{"type": "string","description": "alghorithm used to hash the security answer by the sending party","enum":{"SHA2":"SHA2","MD5":"MD5"}},"status":{"type": "integer","description": "Incoming Transfer statuses | TRANSFER_AVAILABLE(3) AUTHENTICATION_FAILURE(5) AUTHENTICATION_SUCCESSFUL(6) DECLINED(7) CANCELLED(8) EXPIRED(9) DIRECT_DEPOSIT_PENDING(17) DIRECT_DEPOSIT_FAILED(18) COMPLETED(10)"}}},"SecurityAnswer":{"type": "object","required":["securityAnswer"],"properties":{"securityAnswer":{"type": "string","description": "answer to the security question (as provided by the customer) with leading and trailing whitespace trimmed, uppercased, postfixed with hashSalt if present, hashed using the alghoritm identified by hashType and then Base64 encoded. ISO-8859-1 encoding to be used when the hash is generated"}}}}},"servers": [
+          "authenticationRequired"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "format": "double",
+            "description": "the sent amount"
+          },
+          "senderMessage": {
+            "description": "message from the sender",
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1
+          },
+          "securityQuestion": {
+            "description": "the security question",
+            "type": "string",
+            "maxLength": 40,
+            "minLength": 1
+          },
+          "senderRegistrationName": {
+            "description": "name used by the sender to register in e-Transfer system; this field should not be specified in POST or PUT requests",
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1
+          },
+          "expiryDate": {
+            "type": "string",
+            "format": "datetime",
+            "description": "UTC datatime this transfer is valid until; format is yyyy-MM-dd'T'HH:mm:ss.SSS'Z', e.g. '2016-09-11T16:12:12.000'"
+          },
+          "hashSalt": {
+            "type": "string",
+            "description": "salt used to hash the security answer by the sending party",
+            "maxLength": 44
+          },
+          "authenticationRequired": {
+            "type": "boolean",
+            "description": "true if recipient authentication is required"
+          },
+          "referenceNumber": {
+            "type": "string",
+            "description": "unique identifier for the transfer",
+            "maxLength": 16
+          },
+          "transferType": {
+            "type": "string",
+            "enum": {
+              "REGULAR_TRANSFER": "REGULAR_TRANSFER",
+              "MONEY_REQUEST_FULFILLMENT": "MONEY_REQUEST_FULFILLMENT",
+              "DIRECT_DEPOSIT": "DIRECT_DEPOSIT"
+            }
+          },
+          "currency": {
+            "type": "string",
+            "description": "the currency of the sent amount; only CAD is supported for now"
+          },
+          "recipientLanguage": {
+            "type": "string",
+            "description": "recipient's preferred language as defined by the sender",
+            "enum": {
+              "EN": "en",
+              "FR": "fr"
+            }
+          },
+          "hashType": {
+            "type": "string",
+            "description": "alghorithm used to hash the security answer by the sending party",
+            "enum": {
+              "SHA2": "SHA2",
+              "MD5": "MD5"
+            }
+          },
+          "status": {
+            "type": "integer",
+            "description": "Incoming Transfer statuses | TRANSFER_AVAILABLE(3) AUTHENTICATION_FAILURE(5) AUTHENTICATION_SUCCESSFUL(6) DECLINED(7) CANCELLED(8) EXPIRED(9) DIRECT_DEPOSIT_PENDING(17) DIRECT_DEPOSIT_FAILED(18) COMPLETED(10)"
+          }
+        }
+      },
+      "SecurityAnswer": {
+        "type": "object",
+        "required": [
+          "securityAnswer"
+        ],
+        "properties": {
+          "securityAnswer": {
+            "type": "string",
+            "description": "answer to the security question (as provided by the customer) with leading and trailing whitespace trimmed, uppercased, postfixed with hashSalt if present, hashed using the alghoritm identified by hashType and then Base64 encoded. ISO-8859-1 encoding to be used when the hash is generated"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
     {
       "url": "https://api.interac.ca/publicapi/api/v2"
     }
-  ],"openapi": "3.0.0","paths": {
+  ],
+  "openapi": "3.0.0",
+  "paths": {
     "/oauth/access-tokens": {
       "parameters": [
         {
@@ -4362,7 +5071,9 @@
         }
       }
     }
-  },"info": {
+  },
+  "info": {
     "version": "2.0.0",
     "title": "e-Transfer Public API"
-  }}
+  }
+}

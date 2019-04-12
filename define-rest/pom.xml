@@ -20,19 +20,17 @@
         <version.undertow>2.0.16.Final</version.undertow>
         <version.json-schema-validator>1.0.6</version.json-schema-validator>
         <version.fastscanner>2.18.1</version.fastscanner>
-        
         <version.hikaricp>3.1.0</version.hikaricp>
-        
-        
-        
-        <version.mysql>6.0.5</version.mysql>
-        
-        
-        
+        <version.mysql>5.1.47</version.mysql>
         <versions.maven-version>2.4</versions.maven-version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.4</version>
+        </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>config</artifactId>
@@ -98,7 +96,6 @@
             <artifactId>metrics</artifactId>
             <version>${version.light-4j}</version>
         </dependency>
-        
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>handler</artifactId>
@@ -209,22 +206,16 @@
             <artifactId>fast-classpath-scanner</artifactId>
             <version>${version.fastscanner}</version>
         </dependency>
-        
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>${version.hikaricp}</version>
         </dependency>
-        
-        
-        
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${version.mysql}</version>
         </dependency>
-        
-        
         <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
