@@ -10,7 +10,7 @@
   "overwriteHandlerTest": true,
   "overwriteModel": true,
   "generateModelOnly": false,
-  "generateValuesYml": fale,
+  "generateValuesYml": false,
   "regenerateCodeOnly":false,
   "httpPort": 8080,
   "enableHttp": false,
