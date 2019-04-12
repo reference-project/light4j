@@ -19,3 +19,9 @@ GIT操作命令
 >* git commit -m 'init project'
 >* git push origin master
 >* git pull
+
+CLI参数说明
+>* -f openapi - choose rest framework that support OpenAPI 3.0 specification for the generator
+>* -o output - choose the output folder for the generated project
+>* -m model - choose the model definition file or IDL spec as it is design driven generator
+>* -c config - choose config file to control how the project is generated
